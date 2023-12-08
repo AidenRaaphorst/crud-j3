@@ -30,7 +30,7 @@
                 </div>
             @endif
 
-            <p class="test">test</p>
+            <p class="bg-amber-400">test</p>
 
         </div>
     </body>
