@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\ThreadController;
+use App\Http\Controllers\ForumPostController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,8 +23,8 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-// Route::get('/threads', "ThreadController@index")->middleware(['auth', 'verified'])->name('threads');
-Route::get('/threads', [ThreadController::class, 'index'])->middleware(['auth', 'verified'])->name('threads');
+// Route::get('/threads', [ThreadController::class, 'index'])->middleware(['auth', 'verified'])->name('threads');
+Route::resource('forums', ForumPostController::class);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

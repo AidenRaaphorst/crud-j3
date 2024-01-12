@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('forum_posts', function (Blueprint $table) {
+        Schema::create('forum_comments', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
             $table->text('message');
             $table->foreignId('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreignId('forum_post_id')->constrained('forum_posts');
             $table->timestamps();
         });
     }

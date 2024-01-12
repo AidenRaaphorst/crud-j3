@@ -2,16 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ForumPost;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
-class ThreadController extends Controller
+class ForumPostController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view("forum.index");
+        $posts = ForumPost::all();
+        return view("forum.index", ['posts' => $posts]);
+        // return view("forum.index");
     }
 
     /**
@@ -19,7 +23,7 @@ class ThreadController extends Controller
      */
     public function create()
     {
-        //
+        return view("forum.create");
     }
 
     /**
@@ -27,7 +31,20 @@ class ThreadController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request
+            ->validate([
+                'title' => 'required|string',
+                'message' => 'required|string',
+            ]);
+
+        $forum = new ForumPost();
+        $forum->title = $request->input('title');
+        $forum->message = $request->input('message');
+        $forum->user_id = Auth::id();
+
+        $forum->save();
+
+        return redirect()->route('forums.index');
     }
 
     /**
@@ -35,7 +52,11 @@ class ThreadController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $post = ForumPost::find($id);
+        if($post === null) {
+            return view('forum.noshow');
+        }
+        return view('forum.show', compact('post'));
     }
 
     /**
