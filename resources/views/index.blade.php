@@ -15,7 +15,6 @@
         @vite('resources/css/app.css')
     </head>
     <body class="antialiased">
-
         <nav class="bg-[#00ff00] h-32 flex flex-row justify-between items-center">
             <img class="h-full" src="/img/header-target.png" alt="Header image">
 
@@ -27,7 +26,24 @@
             </div>
 
             <div class="p-4 gap-4 flex flex-row justify-evenly">
-                <p>TIETTER</p>
+                <p>Facebook Logo</p>
+                <p>Instagram Logo</p>
+                <p>Twitter Logo</p>
+                <p>Youtube Logo</p>
+            </div>
+
+            <div class="flex flex-row justify-evenly gap-4 w-1/6 p-4">
+                @if (Route::has('login'))
+                    @auth
+                        <a href="{{ url('/dashboard') }}">Dashboard</a>
+                    @else
+                        <a href="{{ route('login') }}">Log in</a>
+
+                        @if (Route::has('register'))
+                            <a href="{{ route('register') }}">Register</a>
+                        @endif
+                    @endauth
+                @endif
             </div>
         </nav>
 
