@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MerchController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ForumPostController;
 use Illuminate\Support\Facades\Route;
@@ -24,7 +25,10 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 // Route::get('/threads', [ThreadController::class, 'index'])->middleware(['auth', 'verified'])->name('threads');
-Route::resource('forums', ForumPostController::class);
+Route::resources([
+    'forums' => ForumPostController::class,
+    'merch' => MerchController::class
+]);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
